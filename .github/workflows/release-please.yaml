@@ -2,6 +2,8 @@ on:
   push:
     branches:
       - main
+    branches-ignore:
+      - release-please--branches--main
 
 permissions:
   contents: write
@@ -24,10 +26,4 @@ jobs:
       - name: Releasing (simple)
         uses: googleapis/release-please-action@v4
         with:
-          # this assumes that you have created a personal access token
-          # (PAT) and configured it as a GitHub action secret named
-          # `MY_RELEASE_PLEASE_TOKEN` (this secret name is not important).
           token: ${{ steps.app-token.outputs.token }}
-          # this is a built-in strategy in release-please, see "Action Inputs"
-          # for more options
-          release-type: simple
