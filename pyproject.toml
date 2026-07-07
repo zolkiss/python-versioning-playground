@@ -1,0 +1,12 @@
+[project]
+name = "project-versioning-playground"
+version = "0.0.1"
+dependencies = [
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+pythonpath = ["src"]
