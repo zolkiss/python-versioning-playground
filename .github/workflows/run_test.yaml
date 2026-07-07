@@ -4,6 +4,10 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,7 +21,11 @@ jobs:
         with:
           python-version: '3.14'
 
+      - name: Installing pip dependencies
+        run: pip install pytest build
+
       - name: Running tests
-        run: |
-          pip install pytest
-          pytest ./python-versioning-playground
+        run: pytest .
+
+      - name: Building
+        run: python -m build
